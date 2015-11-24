@@ -9,7 +9,7 @@
 #import "ViewController.h"
 #import "AppDelegate.h"
 
-static NSString *downloadURLString = @"http://www.ebookfrenzy.com/code/LargeImage.jpg";
+static NSString *downloadURLString = @"http://www.fujifilm.com/products/digital_cameras/x/fujifilm_x10/sample_images/img/index/ff_x10_022.JPG";
 
 //@interface ViewController () <NSURLSessionDataDelegate, NSURLSessionTaskDelegate, NSURLSessionDownloadDelegate>
 @interface ViewController () <NSURLSessionDownloadDelegate, NSURLSessionTaskDelegate, NSURLSessionDataDelegate>
@@ -37,6 +37,8 @@ static NSString *downloadURLString = @"http://www.ebookfrenzy.com/code/LargeImag
     NSURLRequest *request = [NSURLRequest requestWithURL:downloadURL];
     _downloadTask = [_session downloadTaskWithRequest:request];
     
+    
+    [NSThread sleepForTimeInterval:3];
     [_downloadTask resume];
 }
 
