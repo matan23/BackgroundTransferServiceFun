@@ -17,11 +17,18 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     
+    // if the app is not running at all when the background transfer finishes, iOS will launch it into the background, and the preceding application and session delegate methods are called after application:didFinishLaunchingWithOptions:.
+    
+    if ([application respondsToSelector:@selector(registerUserNotificationSettings:)]) {
+        [application registerUserNotificationSettings:[UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeAlert|UIUserNotificationTypeBadge|UIUserNotificationTypeSound categories:nil]];
+    }
+    
     return YES;
 }
 
 - (void)application:(UIApplication *)application handleEventsForBackgroundURLSession:(NSString *)identifier completionHandler:(void (^)())completionHandler {
-    
+    //    should verify identifier to call the matching completion handler see https://www.objc.io/issues/5-ios7/multitasking/#nsurlsessiondownloadtask
+    NSLog(@"%s", __PRETTY_FUNCTION__);
     self.sessionCompletionHandler = completionHandler;
 }
 
@@ -34,6 +41,8 @@
 - (void)applicationDidEnterBackground:(UIApplication *)application {
     // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+    
+    // if the app is not running at all when the background transfer finishes, iOS will launch it into the background, and the preceding application and session delegate methods are called after application:didFinishLaunchingWithOptions:.
     NSLog(@"%s", __PRETTY_FUNCTION__);
 }
 
