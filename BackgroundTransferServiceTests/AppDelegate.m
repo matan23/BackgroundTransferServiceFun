@@ -26,8 +26,40 @@
     return YES;
 }
 
+- (NSURLSession *)backgroundURLSession
+{
+//    delegate method in appDelegate..?
+//    mainQueue or backgroundQueue?
+    
+//    static NSURLSession *session = nil;
+//    static dispatch_once_t onceToken;
+//    dispatch_once(&onceToken, ^{
+//        NSString *identifier = @"io.objc.backgroundTransferExample";
+//        NSURLSessionConfiguration* sessionConfig = [NSURLSessionConfiguration backgroundSessionConfiguration:identifier];
+//        session = [NSURLSession sessionWithConfiguration:sessionConfig
+//                                                delegate:self
+//                                           delegateQueue:[NSOperationQueue mainQueue]];
+//    });
+//    
+//    return session;
+}
+
 - (void)application:(UIApplication *)application handleEventsForBackgroundURLSession:(NSString *)identifier completionHandler:(void (^)())completionHandler {
     //    should verify identifier to call the matching completion handler see https://www.objc.io/issues/5-ios7/multitasking/#nsurlsessiondownloadtask
+
+//    from objc.io
+    // You must re-establish a reference to the background session,
+    // or NSURLSessionDownloadDelegate and NSURLSessionDelegate methods will not be called
+    // as no delegate is attached to the session.
+//    NSURLSessionConfiguration *config = [self backgroundURLSession];
+//    NSURLSession *session = [NSURLSession sessionWithConfiguration:config delegate:self delegateQueue:[NSOperationQueue mainQueue]];
+//    
+////    from realm.io talk
+//    [session getTasksWithCompletionHandler:^(NSArray<NSURLSessionDataTask *> * _Nonnull dataTasks, NSArray<NSURLSessionUploadTask *> * _Nonnull uploadTasks, NSArray<NSURLSessionDownloadTask *> * _Nonnull downloadTasks) {
+////        
+//    }];
+//    
+    
     NSLog(@"%s", __PRETTY_FUNCTION__);
     self.sessionCompletionHandler = completionHandler;
 }

@@ -28,7 +28,10 @@ static NSString *downloadURLString = @"http://mirror.internode.on.net/pub/test/1
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
     
-    NSURLSessionConfiguration *conf = [NSURLSessionConfiguration backgroundSessionConfigurationWithIdentifier:@"com.ebookfrenzy.transfer"];
+    
+//    this should use backgroundURLSession of appDelegate
+    NSURLSessionConfiguration *conf = [NSURLSessionConfiguration backgroundSessionConfigurationWithIdentifier:@"io.objc.backgroundTransferExample"];
+    
     conf.allowsCellularAccess = YES;
     
     _session = [NSURLSession sessionWithConfiguration:conf delegate:self delegateQueue:nil];
